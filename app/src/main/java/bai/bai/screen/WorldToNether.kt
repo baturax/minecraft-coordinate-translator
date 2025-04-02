@@ -37,7 +37,7 @@ fun WorldToNether(modifier: Modifier = Modifier) {
             resultX = it.toFloatOrNull()?.div(8)
                 ?: 0f
         },
-        label = { Text("Enter Nether X Coordinate") },
+        label = { Text("Enter World X Coordinate") },
         placeholder = { Text("X Coordinate") },
         keyboardOptions =
             KeyboardOptions(
@@ -53,7 +53,7 @@ fun WorldToNether(modifier: Modifier = Modifier) {
             resultY = it.toFloatOrNull()?.div(8)
                 ?: 0f
         },
-        label = { Text("Enter Nether Y Coordinate") },
+        label = { Text("Enter World Y Coordinate") },
         placeholder = { Text("Y Coordinate") },
         keyboardOptions =
             KeyboardOptions(
