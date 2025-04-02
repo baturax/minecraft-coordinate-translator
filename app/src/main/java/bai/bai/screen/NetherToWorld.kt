@@ -8,7 +8,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -22,30 +21,30 @@ import androidx.compose.ui.unit.sp
 fun NetherToWorld(modifier: Modifier = Modifier) {
     var worldCoordinateX by rememberSaveable { mutableStateOf("") }
     var worldCoordinateY by rememberSaveable { mutableStateOf("") }
-    var resultX by rememberSaveable { mutableDoubleStateOf(0.0) }
-    var resultY by rememberSaveable { mutableDoubleStateOf(0.0) }
+    var resultX by rememberSaveable { mutableStateOf(0.0f) }
+    var resultY by rememberSaveable { mutableStateOf(0.0f) }
 
-    Column {
+    Column(modifier = modifier) {
         Text(
             "Nether 2 World:",
             fontSize = 20.sp,
         )
 
-        Spacer(modifier.padding(top = 10.dp))
+        Spacer(modifier = Modifier.padding(top = 10.dp))
 
         OutlinedTextField(
             value = worldCoordinateX,
             onValueChange = {
                 worldCoordinateX = it
-                resultX = it.toDouble() * 8
+                resultX =
+                    it.toFloatOrNull()?.times(8) ?: 0f
             },
             label = { Text("Enter Nether X Coordinate") },
             placeholder = { Text("X Coordinate") },
             keyboardOptions =
                 KeyboardOptions(
-                    keyboardType = KeyboardType.Decimal,
-                    imeAction = ImeAction.Unspecified,
-                    autoCorrectEnabled = false,
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done,
                 ),
         )
 
@@ -53,16 +52,21 @@ fun NetherToWorld(modifier: Modifier = Modifier) {
             value = worldCoordinateY,
             onValueChange = {
                 worldCoordinateY = it
-                resultY = it.toDouble() * 8
+                resultY = it.toFloatOrNull()?.times(8)
+                    ?: 0f
             },
-            label = { Text("Enter Nether Y Coordinate ") },
+            label = { Text("Enter Nether Y Coordinate") },
             placeholder = { Text("Y Coordinate") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions =
+                KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done,
+                ),
         )
 
-        Spacer(modifier.padding(top = 10.dp))
+        Spacer(modifier = Modifier.padding(top = 10.dp))
 
-        Text("Coordinate in World Is: ", fontSize = 16.sp)
+        Text("Coordinate in World Is:", fontSize = 16.sp)
         Text("X: $resultX", fontSize = 30.sp)
         Text("Y: $resultY", fontSize = 30.sp)
     }
